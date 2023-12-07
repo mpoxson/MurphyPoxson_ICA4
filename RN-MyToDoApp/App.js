@@ -27,7 +27,7 @@ export default function App() {
   };
 
   //event listener logic for deleting task
-  const completeTask = () => {
+  const completeTask = (index) => {
     let copyItems = [...taskItems];
     //remove the specific task as selected by user
     copyItems.splice(index, 1);
@@ -44,6 +44,13 @@ export default function App() {
         {/* container/wrapper for all tasks to be rendered */}
         <View style={styles.items}>
           {/* <Task text={"this is task 1"} /> */}
+          {taskItems.map((item, index) => {
+            return (
+              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                <Task text={item} />
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </View>
       {/* User input for todo tasks */}
@@ -60,6 +67,7 @@ export default function App() {
         <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.andWrapper}>
             <Text style={styles.addText}>+</Text>
+            {/* <Image source={require("./assets/")}></Image> */}
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -74,4 +82,43 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  taskWrapper: {
+    paddingTop: 80,
+    paddingHorizontal: 20,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  items: {
+    marginTop: 30,
+  },
+  writeTaskWrapper: {
+    position: "absolute",
+    bottom: 60,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  input: {
+    paddingVertical: 15,
+    paddingHorizontal: 15,
+    backgroundColor: "#fff",
+    borderRadius: 60,
+    borderColor: "#C0c0c0",
+    borderWidth: 1,
+    width: 250,
+  },
+  andWrapper: {
+    width: 60,
+    height: 60,
+    backgroundColor: "#fff",
+    borderRadius: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#c0c0c0",
+    borderWidth: 1,
+  },
+  addText: {},
 });
